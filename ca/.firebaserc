@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ca-project-c38ea": {
+      "hosting": {
+        "ca": [
+          "ca-project-c38ea"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ca-project-c38ea"
+  }
+}
