@@ -8,6 +8,7 @@ import { MaterialModule } from '../material/material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { RouterModule } from '@angular/router';
+import { AboutAsComponent } from './about-as/about-as.component';
 
 
 
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     PageNotFoundComponent,
     LayoutComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    AboutAsComponent
   ],
   imports: [
     CommonModule,

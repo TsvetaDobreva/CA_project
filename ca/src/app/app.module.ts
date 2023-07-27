@@ -16,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
 import { MainComponent } from './main/main.component';
 import { environment } from '../environments/environment.development';
 import { MaterialModule } from './material/material.module';
+import { AdminModule } from './views/adminView/admin.module';
+import { UserModule } from './views/userView/user.module';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { MaterialModule } from './material/material.module';
   ],
   imports: [
     AuthModule,
+    AdminModule,
+    UserModule,
     MaterialModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -35,7 +39,7 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     CoreModule,
     ComponentModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
