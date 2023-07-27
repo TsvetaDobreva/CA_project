@@ -1,0 +1,16 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover,
+a:active {
+    color: lightgray;
+}
+
+.nav-caption {
+    position: absolute;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+

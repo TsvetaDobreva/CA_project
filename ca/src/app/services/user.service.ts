@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
-import { collection, addDoc, doc, getDoc, setDoc, arrayUnion, updateDoc } from 'firebase/firestore';
-import { environment } from 'src/environments/environment.development';
-import { db } from 'src/main';
-import { NgForm } from '@angular/forms';
-import { from, Observable } from 'rxjs';
+/********* Angular **********/
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+/********* interface *********/
+import { IUser } from '../shared/interfaces/user'
+/********* fireBase *********/
+import { AngularFirestore, AngularFirestoreDocument, } from '@angular/fire/compat/firestore';
+import * as auth from 'firebase/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
-const apiURL = environment.apiURL;
 
 
 @Injectable({
@@ -16,53 +15,83 @@ const apiURL = environment.apiURL;
 })
 
 export class UserService {
-  firebaseAuth = getAuth();
-  uid: string | any;
-  user: User | undefined;
+  userData: any; // Save logged in user data
 
   constructor(
-    // private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private firestore: AngularFirestore
-  ) { }
+    public afs: AngularFirestore, // Inject Firestore service
+    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    public router: Router,
+    public ngZone: NgZone // NgZone service to remove outside scope warning
+  ) {
+    this.afAuth.authState.subscribe((user) => {
+      debugger
+      if (user) {
 
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user')!);
+      } else {
+        localStorage.setItem('user', 'null');
+        JSON.parse(localStorage.getItem('user')!);
+      }
+    });
 
+  }
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null;
+  }
+  logout() {
+    return this.afAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['/auth/login']);
+    });
+  }
   register(email: string, password: string, firstName: string, lastName: string, company: string | undefined) {
-    createUserWithEmailAndPassword(this.firebaseAuth, email, password)
-      .then((userCredential) => {
-        this.user = userCredential.user;
-        this.uid = userCredential.user.uid;
-        return this.firestore.collection('user')
-          .doc(userCredential.user.uid)
-          .set({ email: email, firstName: firstName, lastName: lastName, company: company });
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.SetUserData(result.user, firstName, lastName, company);
       })
-      .then(() => {
-        // Registered, signed in and added to DB collection 'users'
-        this.router.navigate(['users/profile'], {
-          queryParams: {
-            id: this.uid
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  };
+  SetUserData(user: any, firstName: string, lastName: string, company: string | undefined) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const userData: IUser = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified,
+      firstName: firstName,
+      lastName: lastName,
+      company: company,
+      orders: []
+    };
+    return userRef.set(userData, {
+      merge: true,
+    });
+  }
+
+
+  login(email: string, password: string) {
+    debugger
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        //this.SetUserData(result.user);
+        this.afAuth.authState.subscribe((user) => {
+          if (user) {
+            this.router.navigate(['/']);
           }
         });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      }
-      );
-  };
-
-  login(email: string, password: string) {
-    signInWithEmailAndPassword(this.firebaseAuth, email, password)
-      .then((userCredential) => { // Signed in 
-        this.user = userCredential.user;
-        this.uid = this.user.uid;
-        this.router.navigate(['/']);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        window.alert(error.message);
       });
   }
 

@@ -4,6 +4,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MaterialModule } from '../material/material.module';
+import { LayoutComponent } from './layout/layout.component';
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,16 +15,22 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   declarations: [
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LayoutComponent,
+    SidenavListComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
+    MaterialModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LayoutComponent,
+    SidenavListComponent
   ]
 })
 export class CoreModule { }

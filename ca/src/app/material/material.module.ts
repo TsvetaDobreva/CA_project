@@ -8,6 +8,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+ 
 
 @NgModule({
   declarations: [],
@@ -20,7 +25,11 @@ import {FormsModule} from '@angular/forms';
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatListModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -30,7 +39,11 @@ import {FormsModule} from '@angular/forms';
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatListModule,
+    MatMenuModule
   ]
 })
 
