@@ -1,9 +1,10 @@
 <div class="login-container">
     <div class="login-content">
-        <mat-toolbar class="login-toolbar" color="primary">LOGIN</mat-toolbar>
-        <mat-card>
+        <mat-toolbar class="login-toolbar">LOGIN</mat-toolbar>
+        <mat-card class="login-card">
 
             <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit(loginForm, formDirective)">
+                <mat-card-content>
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>email</mat-icon>
                     <input autofocus type="email" [appEmail]="''" matInput placeholder="Email *"
@@ -27,11 +28,14 @@
                 </mat-form-field>
 
                 <hr>
-                <div class="socialMediaFlex">
+            </mat-card-content>
+                <mat-card-actions>
                     <!-- <button style="width:50%" [disabled]="loginForm.invalid" type="submit" mat-raised-button
                         color="primary">Submit</button> -->
-                    <button style="width:50%" type="submit" mat-raised-button color="primary">Submit</button>
-                </div>
+
+                    <button style="width:50%" type="submit" mat-raised-button color="primary"
+                        id="login-submit-button">Submit</button>
+                </mat-card-actions>
             </form>
         </mat-card>
     </div>

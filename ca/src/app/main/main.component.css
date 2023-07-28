@@ -1,0 +1,45 @@
+.main-container {
+    background: url('../../assets/coverPhoto/last.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    height: 85%;
+    background-size: 100% 100%;
+    background-position: center;
+    flex-direction: column;
+    align-content: center;
+}
+
+.main-text-container {
+    min-width: 50%;
+    min-height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    padding-left: 14%;
+}
+
+.main-text {
+    font-size: 24px;
+    font-family: fantasy;
+}
+
+.main-button {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 50px;
+    padding-right: 30px;
+}
+
+#main-text-button {
+    color: #fff;
+    background-color: #000;
+    font-size: 16px;
+}
+
+.main-text-author {
+    padding-left: 40%;
+}

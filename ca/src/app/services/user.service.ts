@@ -24,7 +24,6 @@ export class UserService {
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     this.afAuth.authState.subscribe((user) => {
-      debugger
       if (user) {
 
         this.userData = user;
