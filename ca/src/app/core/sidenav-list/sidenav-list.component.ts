@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'app-sidenav-list',
@@ -9,7 +10,19 @@ export class SidenavListComponent {
 
   @Output() sidenavClose = new EventEmitter();
 
-  constructor() { }
+  constructor(private userService: UserService) { }
+
+  get isLoggedIn() {
+    return this.userService.isLoggedIn
+  }
+
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
+
+  // get user() {
+  //   return this.userService.userData
+  // }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();

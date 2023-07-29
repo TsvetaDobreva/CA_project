@@ -6,8 +6,12 @@ import { UserService } from '../../services/user.service';
 export const authGuard = () => {
   const authService = inject(UserService);
   const router = inject(Router);
-debugger
+
   if (authService.isLoggedIn) {
+    return true;
+  }
+
+  if (authService.isAdmin) {
     return true;
   }
 

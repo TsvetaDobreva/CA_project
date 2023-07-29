@@ -1,12 +1,12 @@
 <div class="login-container">
     <div class="login-content">
-        <mat-toolbar class="login-toolbar" color="primary">REGISTER</mat-toolbar>
+        <mat-toolbar class="login-toolbar" color="primary">Регистрация</mat-toolbar>
         <mat-card>
 
             <form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="onSubmit(registerForm, formDirective)">
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>email</mat-icon>
-                    <input autofocus type="email" [appEmail]="''" matInput placeholder="Email *"
+                    <input autofocus type="email" [appEmail]="''" matInput placeholder="Електронна поща"
                         formControlName="email">
                     {{registerForm.get('email')?.errors?.['appEmail'] | json}}
                     <mat-error *ngIf="registerForm.get('email')?.errors?.['appEmail']">
@@ -18,7 +18,7 @@
                 <ng-container formGroupName="pass">
                     <mat-form-field class="mat-form-field">
                         <mat-icon matPrefix>vpn_key_alert</mat-icon>
-                        <input type="password" autocomplete="false" matInput placeholder="Password *"
+                        <input type="password" autocomplete="false" matInput placeholder="Парола"
                             formControlName="password">
                         <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
                             number</mat-hint>
@@ -29,7 +29,7 @@
 
                     <mat-form-field class="mat-form-field">
                         <mat-icon matPrefix>vpn_key_alert</mat-icon>
-                        <input type="rePassword" autocomplete="false" matInput placeholder="Repeat Password *"
+                        <input type="rePassword" autocomplete="false" matInput placeholder="Повтори парола"
                             formControlName="rePassword">
                         <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
                             number</mat-hint>
@@ -42,7 +42,7 @@
 
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>person_outline</mat-icon>
-                    <input autofocus type="text" matInput placeholder="First Name *" formControlName="firstName">
+                    <input autofocus type="text" matInput placeholder="Име" formControlName="firstName">
                     <mat-error *ngIf="checkValidation('username')">
                         {{ fieldRequired }}
                     </mat-error>
@@ -50,7 +50,7 @@
 
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>supervisor_account</mat-icon>
-                    <input autofocus type="text" matInput placeholder="Last Name *" formControlName="lastName">
+                    <input autofocus type="text" matInput placeholder="Фамилия" formControlName="lastName">
                     <mat-error *ngIf="checkValidation('username')">
                         {{ fieldRequired }}
                     </mat-error>
@@ -58,7 +58,7 @@
 
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>cases</mat-icon>
-                    <input autofocus type="text" matInput placeholder="Company" formControlName="company">
+                    <input autofocus type="text" matInput placeholder="Фирма" formControlName="company">
                     <mat-error *ngIf="checkValidation('username')">
                         {{ fieldRequired }}
                     </mat-error>
@@ -68,7 +68,7 @@
                 <div class="socialMediaFlex">
                     <!-- <button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
                         color="primary">Submit</button> -->
-                    <button style="width:50%" type="submit" mat-raised-button color="primary">Submit</button>
+                    <button style="width:50%" type="submit" mat-raised-button color="primary">Регистрация</button>
                 </div>
             </form>
         </mat-card>

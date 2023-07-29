@@ -1,9 +1,4 @@
 .login-container {
-    /* height: calc(100% - 100px);
-    width: 100%;
-    align-items: center;
-    display: flex; */
-
     background: url('../../../assets/coverPhoto/home_photo.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
@@ -43,8 +38,8 @@
     height: 60px;
     margin-top: 15px;
   }
+
   .socialMediaFlex{
-   
     display:flex;
     justify-content: space-around;
   }
