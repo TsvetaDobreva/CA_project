@@ -5,6 +5,7 @@ import { AllOffersComponent } from './all-offers/all-offers.component';
 import { ConfirmOffersComponent } from './confirm-offers/confirm-offers.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { CompleteOffersComponent } from './complete-offers/complete-offers.component';
+import { MaterialModule } from 'src/app/material/material.module';
 
 
 
@@ -17,7 +18,8 @@ import { CompleteOffersComponent } from './complete-offers/complete-offers.compo
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    MaterialModule
   ]
 })
 export class AdminModule { }

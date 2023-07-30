@@ -19,6 +19,7 @@ import { MaterialModule } from './material/material.module';
 import { AdminModule } from './views/adminView/admin.module';
 import { UserModule } from './views/userView/user.module';
 
+
 // const app = AngularFireModule.initializeApp(environment.firebaseConfig);
 // const db = getFirestore(app);
 
@@ -28,6 +29,7 @@ import { UserModule } from './views/userView/user.module';
     MainComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     AuthModule,
     AdminModule,
     UserModule,
@@ -41,7 +43,7 @@ import { UserModule } from './views/userView/user.module';
     BrowserModule,
     CoreModule,
     ComponentModule,
-    BrowserAnimationsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

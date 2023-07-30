@@ -48,6 +48,10 @@ export class UserService {
     return this.userInfo?.isAdmin;
   }
 
+  get user(): IUser {
+    return this.userInfo;
+  }
+
   logout() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');

@@ -1,1 +1,64 @@
-<p>get-offer works!</p>
+<form [formGroup]="getOfferForm" #formDirective="ngForm" (ngSubmit)="onSubmit(getOfferForm, formDirective)">
+    <mat-stepper orientation="vertical">
+
+        <mat-step>
+            <ng-template matStepLabel>Стъпка 1: Избор брой позиции</ng-template>
+            <ng-template matStepContent>
+                <mat-form-field>
+                    <mat-label>Брой позиции</mat-label>
+                    <input type="number" matInput formControlName="count" required>
+                    <mat-error>Задължително поле!</mat-error>
+                </mat-form-field>
+                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+            </ng-template>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Стъпка 2: Размери</ng-template>
+            <ng-template matStepContent>
+                <mat-form-field class="mat-form-field textarea">
+                    <mat-label>Въведете размери</mat-label>
+                    <textarea matInput formControlName="measure"></textarea>
+                </mat-form-field>
+                <button mat-button matStepperPrevious type="button">Назад</button>
+                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Стъпка 3: Избор на система</ng-template>
+            <ng-template matStepContent>              
+                <mat-form-field class="mat-form-field textarea">
+                    <mat-label>Тип система</mat-label>
+                    <mat-select disableRipple formControlName="systemType">
+                        <mat-option value="Трикамерна">Трикамерна</mat-option>
+                        <mat-option value="Петкамерна">Петкамерна</mat-option>
+                        <mat-option value="Седемкамерна">Седемкамерна</mat-option>
+                      </mat-select>    
+                </mat-form-field>
+                <button mat-button matStepperPrevious type="button">Назад</button>
+                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+            </ng-template>
+        </mat-step>
+        
+        <mat-step>
+            <ng-template matStepLabel>Стъпка 4: Избор на стъклопакет</ng-template>
+            <ng-template matStepContent>
+                <mat-form-field class="mat-form-field textarea">
+                    <mat-label>Тип стъклопакет</mat-label>
+                    <mat-select disableRipple formControlName="glassType">
+                        <mat-option value="Двоен">Двоен</mat-option>
+                        <mat-option value="Троен">Троен</mat-option>
+                      </mat-select>    
+                </mat-form-field>
+                <button mat-button matStepperPrevious type="button">Назад</button>
+                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Стъпка 5: Изпрати запитването</ng-template>
+            <button mat-button matStepperPrevious type="button">Назад</button>
+            <button type="submit" mat-raised-button color="primary"
+            id="getOffer-submit-button">Изпрати</button>
+        </mat-step>
+    </mat-stepper>
+</form>

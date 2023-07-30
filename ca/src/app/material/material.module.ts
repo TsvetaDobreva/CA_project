@@ -12,6 +12,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
  
 
 @NgModule({
@@ -29,7 +32,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MatTabsModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -43,7 +49,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MatTabsModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatTableModule
   ]
 })
 
