@@ -12,9 +12,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatSelectModule} from '@angular/material/select';
-import {MatTableModule} from '@angular/material/table';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
  
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatTableModule} from '@angular/material/table';
     MatMenuModule,
     MatStepperModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +54,8 @@ import {MatTableModule} from '@angular/material/table';
     MatMenuModule,
     MatStepperModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ]
 })
 

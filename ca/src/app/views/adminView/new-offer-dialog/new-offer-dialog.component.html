@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+    <ng-container *ngFor="let position of data.arrPosition; let i = index; trackBy: trackByFn">
+        <mat-form-field class="example-full-width">
+            <mat-label>Цена за позиция {{i+1}}</mat-label>
+            <input name='positionPrice{{i}}' matInput [(ngModel)]="data.arrPosition[i]['price']">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width"> 
+            <mat-label>Размер на позиция {{i+1}}</mat-label>
+            <input name='measure{{i}}' matInput [(ngModel)]="data.arrPosition[i]['measure']">
+        </mat-form-field>
+    </ng-container>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Откажи</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Изпрати оферта</button>
+</div>

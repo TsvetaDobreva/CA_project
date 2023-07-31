@@ -6,6 +6,7 @@ import { ConfirmOffersComponent } from './confirm-offers/confirm-offers.componen
 import { AdminRoutingModule } from './admin-routing.module';
 import { CompleteOffersComponent } from './complete-offers/complete-offers.component';
 import { MaterialModule } from 'src/app/material/material.module';
+import { NewOfferDialogComponent } from './new-offer-dialog/new-offer-dialog.component';
 
 
 
@@ -14,7 +15,8 @@ import { MaterialModule } from 'src/app/material/material.module';
     NewOffersComponent,
     AllOffersComponent,
     ConfirmOffersComponent,
-    CompleteOffersComponent
+    CompleteOffersComponent,
+    NewOfferDialogComponent
   ],
   imports: [
     CommonModule,

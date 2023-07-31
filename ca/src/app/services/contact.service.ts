@@ -4,10 +4,13 @@ import { Router } from '@angular/router'
 
 /********* firebase *********/
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { addDoc, collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'src/main';
-import { IOfferRequest, IShowNewOfferRequest } from '../shared/interfaces/offerRequest';
+import { IDialogShowOfferRequest, IOfferRequest, IShowNewOfferRequest } from '../shared/interfaces/offerRequest';
 import { UserService } from './user.service';
+import { IOffer, IShowOffer } from '../shared/interfaces/offer';
+import { map } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -59,18 +62,20 @@ export class ContactService {
           uid: doc.id,
           position: counter,
           email: doc.data()['user']['email'],
-          date:  doc.data()['date'].toDate().toLocaleString(),
+          date: doc.data()['date'].toDate().toLocaleString(),
           count: doc.data()['count'],
           measure: doc.data()['measure'],
           systemType: doc.data()['systemType'],
           glassType: doc.data()['glassType'],
-          status: doc.data()['status']
+          status: doc.data()['status'],
+          userUid: doc.data()['user']['uid'],
+          name: doc.data()['user']['firstName'] + ' ' + doc.data()['user']['lastName']
         }
         counter++;
         newRequest.push(record);
       });
-      
-    }catch(error) {
+
+    } catch (error) {
       alert(error);
     }
     return newRequest;
@@ -83,5 +88,50 @@ export class ContactService {
       })
       .catch((error) => { alert(error) })
   }
-}
 
+  async changeStatus(uid: string, status: string) {
+    const docRef = doc(db, 'offerRequest', uid);
+    try {
+      await updateDoc(docRef, { status });
+    } catch (e) {
+      console.error('Error updating document: ', e);
+    }
+
+  }
+
+  sendBackOffer(data: IDialogShowOfferRequest) {
+    const newRequestData: IOffer = {
+      userUid: data.userUid,
+      name: data.name,
+      positionData: data.arrPosition,
+      glassType: data.glassType,
+      systemType: data.systemType
+    }
+    this.addToDb(newRequestData, 'sendBackOffers');
+  }
+
+  async getMyOfferBack(userUid: string) {
+    const myOffers: any = [];
+    try {
+      let counter = 1;
+      const q = query(collection(db, 'sendBackOffer'), where('userUid', '==', userUid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const record: IShowOffer = {
+          userUid: doc.data()['userUid'],
+          name: doc.data()['name'],
+          glassType: doc.data()['glassType'],
+          systemType: doc.data()['systemType'],
+          positionData: doc.data()['positionData'],
+          position: counter
+        }
+        counter++;
+        myOffers.push(record);
+      });
+
+    } catch (error) {
+      alert(error);
+    }
+    return myOffers;
+  }
+}
