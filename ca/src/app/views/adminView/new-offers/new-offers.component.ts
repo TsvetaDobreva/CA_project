@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {NgFor, NgIf} from '@angular/common';
 import { ContactService } from 'src/app/services/contact.service';
 import { IDialogShowOfferRequest, IOfferRequest, IPositionPrice, IShowNewOfferRequest } from 'src/app/shared/interfaces/offerRequest';
 import { MatDialog } from '@angular/material/dialog';

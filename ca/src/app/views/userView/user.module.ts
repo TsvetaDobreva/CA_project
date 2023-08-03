@@ -5,13 +5,15 @@ import { MyOfferComponent } from './my-offer/my-offer.component';
 import { UserRoutingModule } from './user-routing.module';
 import { MaterialModule } from 'src/app/material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 
 
 @NgModule({
   declarations: [
     GetOfferComponent,
-    MyOfferComponent
+    MyOfferComponent,
+    MyOrdersComponent
   ],
   imports: [
     CommonModule,

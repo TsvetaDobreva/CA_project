@@ -96,7 +96,6 @@ export class ContactService {
     } catch (e) {
       console.error('Error updating document: ', e);
     }
-
   }
 
   sendBackOffer(data: IDialogShowOfferRequest) {
@@ -105,16 +104,18 @@ export class ContactService {
       name: data.name,
       positionData: data.arrPosition,
       glassType: data.glassType,
-      systemType: data.systemType
+      systemType: data.systemType,
+      date: new Date()
     }
     this.addToDb(newRequestData, 'sendBackOffers');
   }
 
-  async getMyOfferBack(userUid: string) {
+  async getMyOfferBack() {
+    const userUid = this.userService.getUserUid();
     const myOffers: any = [];
     try {
       let counter = 1;
-      const q = query(collection(db, 'sendBackOffer'), where('userUid', '==', userUid));
+      const q = query(collection(db, 'sendBackOffers'), where('userUid', '==', userUid));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         const record: IShowOffer = {
@@ -123,7 +124,8 @@ export class ContactService {
           glassType: doc.data()['glassType'],
           systemType: doc.data()['systemType'],
           positionData: doc.data()['positionData'],
-          position: counter
+          position: counter,
+          date: doc.data()['date'].toDate().toLocaleString()
         }
         counter++;
         myOffers.push(record);
@@ -134,4 +136,6 @@ export class ContactService {
     }
     return myOffers;
   }
+
+  
 }

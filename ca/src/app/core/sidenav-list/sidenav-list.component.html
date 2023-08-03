@@ -22,12 +22,17 @@
         </a>
 
         <a mat-list-item routerLink="user/getOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">connect_without_contact</mat-icon> <span class="nav-caption">Вземи
+            <mat-icon class="material-symbols-outlined">library_add</mat-icon> <span class="nav-caption">Вземи
                 своята оферта</span>
         </a>
-    
+
         <a mat-list-item routerLink="user/myOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">connect_without_contact</mat-icon> <span class="nav-caption">Моите
+            <mat-icon class="material-symbols-outlined">library_books</mat-icon> <span class="nav-caption">Моите оферти
+                </span>
+        </a>
+    
+        <a mat-list-item routerLink="user/myOrders" (click)="onSidenavClose()">
+            <mat-icon class="material-symbols-outlined">forum</mat-icon> <span class="nav-caption">Моите
                 поръчки</span>
         </a>  
     </div>
@@ -40,28 +45,28 @@
         </a>
 
         <a mat-list-item routerLink="admin/newOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">connect_without_contact</mat-icon> <span
+            <mat-icon class="material-symbols-outlined">playlist_add</mat-icon> <span
                 class="nav-caption">Запитвания за оферти</span>
         </a>
-    
-        <a mat-list-item routerLink="adim/allOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">storage</mat-icon> <span class="nav-caption">Всички
-                поръчки</span>
-        </a>
-    
+
         <a mat-list-item routerLink="admin/confirmOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">approval</mat-icon> <span class="nav-caption">Приети
+            <mat-icon class="material-symbols-outlined">playlist_add_check</mat-icon> <span class="nav-caption">Приети
                 нови поръчки</span>
         </a>
     
+        <a mat-list-item routerLink="adim/allOffers" (click)="onSidenavClose()">
+            <mat-icon class="material-symbols-outlined">reorder</mat-icon> <span class="nav-caption">Всички
+                поръчки</span>
+        </a>
+        
         <a mat-list-item routerLink="admin/completeOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">connect_without_contact</mat-icon> <span
+            <mat-icon class="material-symbols-outlined">storage</mat-icon> <span
                 class="nav-caption">Завършени поръчки</span>
         </a>
     </div>
 
     <a mat-list-item routerLink="projects" (click)="onSidenavClose()">
-        <mat-icon class="material-symbols-outlined">settings_alert</mat-icon> <span class="nav-caption">Реализирани проекти</span>
+        <mat-icon class="material-symbols-outlined">event_available</mat-icon> <span class="nav-caption">Реализирани проекти</span>
     </a>
 
     <a mat-list-item routerLink="aboutUs" (click)="onSidenavClose()">

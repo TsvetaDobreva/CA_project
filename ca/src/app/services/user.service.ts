@@ -52,6 +52,10 @@ export class UserService {
     return this.userInfo;
   }
 
+  getUserUid() {
+    return JSON.parse(localStorage.getItem('user')!).uid;
+  }
+
   logout() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
@@ -106,6 +110,5 @@ export class UserService {
         window.alert(error.message);
       });
   }
-
 }
 
