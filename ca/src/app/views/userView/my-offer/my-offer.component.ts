@@ -4,7 +4,7 @@ import { ContactService } from 'src/app/services/contact.service';
 import { UserService } from 'src/app/services/user.service';
 import jsPDF from 'jspdf';
 import { IPositionPrice } from 'src/app/shared/interfaces/offerRequest';
-import { IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
+import { ICompleteOffer, IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
 
 @Component({
   selector: 'app-my-offer',
@@ -21,7 +21,7 @@ import { IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
 
 export class MyOfferComponent implements OnInit {
   dataSource: IRowInMyOfferTable[] = [];
-  columnsToDisplay = ['position', 'price', 'date'];
+  columnsToDisplay = ['position', 'price', 'date', ' '];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IRowInMyOfferTable  | null = null;
 
@@ -31,9 +31,10 @@ export class MyOfferComponent implements OnInit {
     this.dataStore.getMyOfferBack().then((data) => {
       this.dataSource = data;
       let totalPrice = 0;
+      data.action = ' ';
       data.forEach( (record: any, index: number) => {
         record.positionData.forEach((postData: any) => {
-      
+          debugger
           totalPrice += Number(postData.price);
         })
         record.price = totalPrice + 'лв';
@@ -96,6 +97,18 @@ export class MyOfferComponent implements OnInit {
   }
 
   confirmOrder(element: IRowInMyOfferTable) {
+    const data: ICompleteOffer = {
+      price: element.price,
+      date: new Date(),
+      userUid: element.userUid,
+      adminTableItemUid: element.adminTableItemUid!,
+      status: 'ПРИЕТА'
+    }
+
+   this.dataStore.completeOffer(data, element.id!);
+  }
+
+  declineOrder(element: IRowInMyOfferTable) {
     
 
   }

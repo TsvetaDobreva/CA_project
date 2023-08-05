@@ -49,20 +49,15 @@
                 class="nav-caption">Запитвания за оферти</span>
         </a>
 
-        <a mat-list-item routerLink="admin/confirmOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">playlist_add_check</mat-icon> <span class="nav-caption">Приети
-                нови поръчки</span>
+        <a mat-list-item routerLink="admin/newOrders" (click)="onSidenavClose()">
+            <mat-icon class="material-symbols-outlined">playlist_add_check</mat-icon> <span class="nav-caption">Нови поръчки</span>
         </a>
     
-        <a mat-list-item routerLink="adim/allOffers" (click)="onSidenavClose()">
+        <a mat-list-item routerLink="admin/allOrders" (click)="onSidenavClose()">
             <mat-icon class="material-symbols-outlined">reorder</mat-icon> <span class="nav-caption">Всички
                 поръчки</span>
         </a>
-        
-        <a mat-list-item routerLink="admin/completeOffers" (click)="onSidenavClose()">
-            <mat-icon class="material-symbols-outlined">storage</mat-icon> <span
-                class="nav-caption">Завършени поръчки</span>
-        </a>
+
     </div>
 
     <a mat-list-item routerLink="projects" (click)="onSidenavClose()">

@@ -1,0 +1,13 @@
+.notFound-container {
+    background: url('../../../assets/pageNotFound.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    height: 85%;
+    background-size: 100% 100%;
+    background-position: center;
+    flex-direction: column;
+    align-content: center;
+}

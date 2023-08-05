@@ -1,13 +1,18 @@
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
         <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-        <td mat-cell *matCellDef="let element"> {{element[column]}}</td>
+        <td mat-cell *matCellDef="let element">
+            {{element[column]}}
+            <button *ngIf="column == ' '" style="width:50%; margin-right: 5px; margin-bottom: 5px;" type="button"
+                mat-raised-button color="primary"
+                (click)="confirmOrder(element); $event.stopPropagation()">Поръчай</button>
+            <button *ngIf="column == ' '" style="width:50%" type="button" mat-raised-button color="accent"
+                (click)="declineOrder(element); $event.stopPropagation()">Откажи</button>
+        </td>
     </ng-container>
     <ng-container matColumnDef="expand">
         <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
         <td mat-cell *matCellDef="let element">
-            <button style="width:50%" type="button" mat-raised-button color="primary" id="confirm-pdf-button"
-            (click)="confirmOrder(element)">Поръчай</button>
             <button mat-icon-button aria-label="expand row"
                 (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
                 <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>

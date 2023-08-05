@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllOffersComponent } from './all-offers/all-offers.component';
 import { NewOffersComponent } from './new-offers/new-offers.component';
-import { ConfirmOffersComponent } from './confirm-offers/confirm-offers.component';
-import { CompleteOffersComponent } from './complete-offers/complete-offers.component';
-
+import { AllOrdersComponent } from './all-orders/all-orders.component';
+import { NewOrdersComponent } from './new-orders/new-orders.component';
 
 
 const routes: Routes = [
@@ -12,24 +10,22 @@ const routes: Routes = [
         path: 'admin',
         children: [
             {
-                path: 'allOffers',
-                component: AllOffersComponent
+                path: 'allOrders',
+                component: AllOrdersComponent,
+                data: { title: 'Всички поръчки'}
             },
             {
                 path: 'newOffers',
-                component: NewOffersComponent
+                component: NewOffersComponent,
+                data: { title: 'Запитвания за оферти'}
             },
             {
-                path: 'confirmOffers',
-                component: ConfirmOffersComponent
-            },
-            {
-                path: 'completeOffers',
-                component: CompleteOffersComponent
+                path: 'newOrders',
+                component: NewOrdersComponent,
+                data: { title: 'Нови поръчки'}
             }
         ]
     }
 ];
-
 
 export const AdminRoutingModule = RouterModule.forChild(routes);

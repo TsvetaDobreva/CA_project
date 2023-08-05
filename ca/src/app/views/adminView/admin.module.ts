@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewOffersComponent } from './new-offers/new-offers.component';
-import { AllOffersComponent } from './all-offers/all-offers.component';
-import { ConfirmOffersComponent } from './confirm-offers/confirm-offers.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { CompleteOffersComponent } from './complete-offers/complete-offers.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { NewOfferDialogComponent } from './new-offer-dialog/new-offer-dialog.component';
+import { NewOrdersComponent } from './new-orders/new-orders.component';
+import { AllOrdersComponent } from './all-orders/all-orders.component';
 
 
 
 @NgModule({
   declarations: [
     NewOffersComponent,
-    AllOffersComponent,
-    ConfirmOffersComponent,
-    CompleteOffersComponent,
-    NewOfferDialogComponent
+    NewOfferDialogComponent,
+    NewOrdersComponent,
+    AllOrdersComponent
   ],
   imports: [
     CommonModule,

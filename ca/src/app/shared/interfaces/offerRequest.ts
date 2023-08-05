@@ -14,7 +14,7 @@ export interface IShowNewOfferRequest {
     uid: string;
     position: number;
     email?: string;
-    date: string;
+    date: Date;
     count: number;
     measure: string;
     systemType: string;
