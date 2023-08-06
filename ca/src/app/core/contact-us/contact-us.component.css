@@ -24,6 +24,10 @@
     margin-bottom: 10px;
 }
 
+#contact-submit-button:disabled {
+    background-color: #bab2b2;
+  }
+
 .contact-card {
     text-align: center;
     margin: 10px;

@@ -56,13 +56,6 @@ export class UserService {
     return JSON.parse(localStorage.getItem('user')!).uid;
   }
 
-  logout() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['/auth/login']);
-    });
-  }
-
   register(email: string, password: string, firstName: string, lastName: string, company: string | undefined) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
@@ -109,6 +102,13 @@ export class UserService {
       .catch((error) => {
         window.alert(error.message);
       });
+  }
+
+  logout() {
+    return this.afAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['/auth/login']);
+    });
   }
 }
 

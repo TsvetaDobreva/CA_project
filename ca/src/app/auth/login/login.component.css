@@ -39,6 +39,11 @@
     margin-top: 15px;
   }
 
+.mdc-card__actions {
+  justify-content: center;
+}
+  
+
   .socialMediaFlex{
     display:flex;
     justify-content: space-around;
@@ -47,8 +52,13 @@
   #login-submit-button {
     background-color: #000;
     color: #fff;
+
   }
 
   .login-card {
     height: 100%;
+  }
+
+  #login-submit-button:disabled {
+    background-color: #bab2b2;
   }

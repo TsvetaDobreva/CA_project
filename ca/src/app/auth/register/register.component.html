@@ -6,69 +6,74 @@
             <form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="onSubmit(registerForm, formDirective)">
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>email</mat-icon>
-                    <input autofocus type="email" [appEmail]="''" matInput placeholder="Електронна поща"
+                    <input autofocus type="email" name='email' matInput placeholder="Електронна поща"
                         formControlName="email">
-                    {{registerForm.get('email')?.errors?.['appEmail'] | json}}
-                    <mat-error *ngIf="registerForm.get('email')?.errors?.['appEmail']">
-                        <!-- {{ emaiErrors() }} -->
 
+                    <mat-error *ngIf="formCheck['email'].errors && formCheck['email'].errors['required']">
+                        Полето е задължително!
+                    </mat-error>
+                    <mat-error
+                        *ngIf="registerForm.get('email')?.dirty && formCheck['email'].errors && formCheck['email'].errors['email']">
+                        Невалидна електронна поща!
                     </mat-error>
                 </mat-form-field>
 
-                <ng-container formGroupName="pass">
-                    <mat-form-field class="mat-form-field">
-                        <mat-icon matPrefix>vpn_key_alert</mat-icon>
-                        <input type="password" autocomplete="false" matInput placeholder="Парола"
-                            formControlName="password">
-                        <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
-                            number</mat-hint>
-                        <!-- <mat-error *ngIf="checkValidation('password')">
-                        {{ getErrorPassword() }}
-                    </mat-error> -->
-                    </mat-form-field>
 
-                    <mat-form-field class="mat-form-field">
-                        <mat-icon matPrefix>vpn_key_alert</mat-icon>
-                        <input type="rePassword" autocomplete="false" matInput placeholder="Повтори парола"
-                            formControlName="rePassword">
-                        <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
-                            number</mat-hint>
-                        <!-- <mat-error>
-                            {{ getErrorPassword() }}
-                        </mat-error> -->
-                    </mat-form-field>
-                </ng-container>
+                <mat-form-field class="mat-form-field">
+                    <mat-icon matPrefix>vpn_key_alert</mat-icon>
+                    <input type="password" autocomplete="false" matInput placeholder="Парола"
+                        formControlName="password">
+                    <mat-hint *ngIf="!registerForm.get('password')?.touched">Choose a password of at least eight
+                        characters, one uppercase letter and one
+                        number</mat-hint>
 
+                    <mat-error *ngIf="formCheck['password'].errors && formCheck['password'].errors['required']">
+                        Полето е задължително!
+                    </mat-error>
+
+                    <mat-error
+                        *ngIf="registerForm.get('password')?.dirty && formCheck['password'].errors && formCheck['password'].errors['minlength']">
+                        Минимална дължина на паролата 8 символа!
+                    </mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-field">
+                    <mat-icon matPrefix>vpn_key_alert</mat-icon>
+                    <input type="rePassword" autocomplete="false" type="password" matInput placeholder="Повтори парола"
+                        formControlName="rePassword">
+                    <mat-error
+                        *ngIf="
+                        formCheck['rePassword'].errors && formCheck['rePassword'].errors['matching']">
+                        Въведените пароли не съвпадат!
+                    </mat-error>
+                </mat-form-field>
 
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>person_outline</mat-icon>
                     <input autofocus type="text" matInput placeholder="Име" formControlName="firstName">
-                    <mat-error *ngIf="checkValidation('username')">
-                        {{ fieldRequired }}
+                    <mat-error *ngIf="formCheck['firstName'].errors && formCheck['firstName'].errors['required']">
+                        Полето е задължително!
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>supervisor_account</mat-icon>
                     <input autofocus type="text" matInput placeholder="Фамилия" formControlName="lastName">
-                    <mat-error *ngIf="checkValidation('username')">
-                        {{ fieldRequired }}
+                    <mat-error *ngIf="formCheck['lastName'].errors && formCheck['lastName'].errors['required']">
+                        Полето е задължително!
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>cases</mat-icon>
                     <input autofocus type="text" matInput placeholder="Фирма" formControlName="company">
-                    <mat-error *ngIf="checkValidation('username')">
-                        {{ fieldRequired }}
-                    </mat-error>
                 </mat-form-field>
 
                 <hr>
                 <div class="socialMediaFlex">
-                    <!-- <button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
-                        color="primary">Submit</button> -->
-                    <button style="width:50%" type="submit" mat-raised-button color="primary">Регистрация</button>
+
+                    <button [disabled]="registerForm.invalid" style="width:50%" type="submit" mat-raised-button color="primary">Регистрация</button>
                 </div>
             </form>
         </mat-card>

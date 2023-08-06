@@ -10,29 +10,44 @@
 
                     <mat-form-field class="mat-form-field">
                         <input autofocus type="email" matInput placeholder="Електронна поща" formControlName="email">
+                        <mat-error *ngIf="contactForm.get('email')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error>    
                     </mat-form-field>
 
                     <mat-form-field class="mat-form-field">
                         <input autofocus type="phone" matInput placeholder="Телефон за връзка" formControlName="phone">
+                        <mat-error *ngIf="contactForm.get('phone')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error> 
                     </mat-form-field>
 
                     <mat-form-field class="mat-form-field">
                         <input autofocus type="text" matInput placeholder="Име" formControlName="firstName">
+                        <mat-error *ngIf="contactForm.get('fisrtName')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error> 
                     </mat-form-field>
 
                     <mat-form-field class="mat-form-field">
                         <input autofocus type="text" matInput placeholder="Фамилия" formControlName="lastName">
+                        <mat-error *ngIf="contactForm.get('lastName')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error> 
                     </mat-form-field>
 
                     <mat-form-field class="mat-form-field textarea">
                         <mat-label>Вашето запитване</mat-label>
                         <textarea matInput formControlName="text"></textarea>
+                        <mat-error *ngIf="contactForm.get('text')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error> 
                     </mat-form-field>
 
                 </mat-card-content>
                 <!-- <mat-divider></mat-divider> -->
                 <mat-card-footer>
-                    <button style="width:50%" type="submit" mat-raised-button color="primary"
+                    <button [disabled]="contactForm.invalid" style="width:50%" type="submit" mat-raised-button color="primary"
                         id="contact-submit-button">ИЗПРАТИ</button>
                 </mat-card-footer>
             </form>

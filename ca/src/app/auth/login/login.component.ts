@@ -10,8 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 
 export class LoginComponent {
   loginForm = this.fb.group({
-    email: ['', [Validators.required]],
-    password: ['', Validators.required, Validators.minLength(8)],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   constructor(private fb: FormBuilder, private auth: UserService) { }
@@ -19,8 +19,7 @@ export class LoginComponent {
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
-    //const password = formData.value.password;
-    const password = '12345678';
+    const password = formData.value.password;
     this.auth.login(email, password);
     formDirective.resetForm();
     this.loginForm.reset();

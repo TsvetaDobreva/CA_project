@@ -5,36 +5,37 @@
 
             <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit(loginForm, formDirective)">
                 <mat-card-content>
-                <mat-form-field class="mat-form-field">
-                    <mat-icon matPrefix>email</mat-icon>
-                    <input autofocus type="email" [appEmail]="''" matInput placeholder="Електронна поща"
-                        formControlName="email">
-                    {{loginForm.get('email')?.errors?.['appEmail'] | json}}
-                    <mat-error *ngIf="loginForm.get('email')?.errors?.['appEmail']">
-                        <!-- {{ emaiErrors() }} -->
+                    <mat-form-field class="mat-form-field">
+                        <mat-icon matPrefix>email</mat-icon>
+                        <input autofocus type="email" matInput placeholder="Електронна поща" formControlName="email">
+                        <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error>
+                        <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">
+                            Невалидна електронна поща!
+                        </mat-error>
+                    </mat-form-field>
 
-                    </mat-error>
-                </mat-form-field>
+                    <mat-form-field class="mat-form-field">
+                        <mat-icon matPrefix>vpn_key_alert</mat-icon>
+                        <input type="password" autocomplete="false" matInput placeholder="Парола"
+                            formControlName="password">
+                        <!-- <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
+                        number</mat-hint> -->
+                        <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
+                            Полето е задължително!
+                        </mat-error>
+                        <mat-error
+                            *ngIf="loginForm.get('password') && loginForm.get('password')?.dirty && loginForm.get('password')?.errors && loginForm.get('password')?.errors?.['minlength']">
+                            Минимална дължина на паролата 8 символа!
+                        </mat-error>
+                    </mat-form-field>
 
-                <mat-form-field class="mat-form-field">
-                    <mat-icon matPrefix>vpn_key_alert</mat-icon>
-                    <input type="password" autocomplete="false" matInput placeholder="Парола"
-                        formControlName="password">
-                    <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
-                        number</mat-hint>
-                    <!-- <mat-error *ngIf="checkValidation('password')">
-                        {{ getErrorPassword() }}
-                    </mat-error> -->
-                </mat-form-field>
-
-                <hr>
-            </mat-card-content>
+                    <hr>
+                </mat-card-content>
                 <mat-card-actions>
-                    <!-- <button style="width:50%" [disabled]="loginForm.invalid" type="submit" mat-raised-button
-                        color="primary">Submit</button> -->
-
-                    <button style="width:50%" type="submit" mat-raised-button color="primary"
-                        id="login-submit-button">Вход</button>
+                    <button [disabled]="loginForm.invalid" style="width:50%" type="submit" mat-raised-button
+                        color="primary" id="login-submit-button">Вход</button>
                 </mat-card-actions>
             </form>
         </mat-card>

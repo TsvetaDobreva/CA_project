@@ -11,10 +11,10 @@ import { ContactService } from 'src/app/services/contact.service';
 
 export class GetOfferComponent {
   getOfferForm = this.fb.group({
-    count: [''],
-    measure: [''],
-    systemType: [''],
-    glassType: ['']
+    count: ['', [Validators.required]],
+    measure: ['', [Validators.required]],
+    systemType: ['', [Validators.required]],
+    glassType: ['', [Validators.required]]
   });
 
   constructor(private fb: FormBuilder, private dataStore: ContactService) {}

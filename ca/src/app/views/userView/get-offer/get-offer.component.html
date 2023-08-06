@@ -1,4 +1,4 @@
-<form [formGroup]="getOfferForm" #formDirective="ngForm" (ngSubmit)="onSubmit(getOfferForm, formDirective)">
+<form  class="getOfferForm" [formGroup]="getOfferForm" #formDirective="ngForm" (ngSubmit)="onSubmit(getOfferForm, formDirective)">
     <mat-stepper orientation="vertical">
 
         <mat-step>
@@ -7,9 +7,9 @@
                 <mat-form-field>
                     <mat-label>Брой позиции</mat-label>
                     <input type="number" matInput formControlName="count" required>
-                    <mat-error>Задължително поле!</mat-error>
+                    <mat-error *ngIf="getOfferForm.get('count')?.errors?.['required']">Полето е задължително!</mat-error>
                 </mat-form-field>
-                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+                <button [disabled]="getOfferForm.get('count')?.errors" mat-button matStepperNext type="button">Следваща стъпка</button>
             </ng-template>
         </mat-step>
 
@@ -19,9 +19,10 @@
                 <mat-form-field class="mat-form-field textarea">
                     <mat-label>Въведете размери</mat-label>
                     <textarea matInput formControlName="measure"></textarea>
+                    <mat-error *ngIf="getOfferForm.get('measure')?.errors?.['required']">Полето е задължително!</mat-error>
                 </mat-form-field>
                 <button mat-button matStepperPrevious type="button">Назад</button>
-                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+                <button  [disabled]="getOfferForm.get('measure')?.errors" mat-button matStepperNext type="button">Следваща стъпка</button>
             </ng-template>
         </mat-step>
         <mat-step>
@@ -33,10 +34,11 @@
                         <mat-option value="Трикамерна">Трикамерна</mat-option>
                         <mat-option value="Петкамерна">Петкамерна</mat-option>
                         <mat-option value="Седемкамерна">Седемкамерна</mat-option>
-                      </mat-select>    
+                      </mat-select>   
+                      <mat-error *ngIf="getOfferForm.get('systemType')?.errors?.['required']">Полето е задължително!</mat-error> 
                 </mat-form-field>
                 <button mat-button matStepperPrevious type="button">Назад</button>
-                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+                <button [disabled]="getOfferForm.get('systemType')?.errors" mat-button matStepperNext type="button">Следваща стъпка</button>
             </ng-template>
         </mat-step>
         
@@ -49,15 +51,16 @@
                         <mat-option value="Двоен">Двоен</mat-option>
                         <mat-option value="Троен">Троен</mat-option>
                       </mat-select>    
+                      <mat-error *ngIf="getOfferForm.get('glassType')?.errors?.['required']">Полето е задължително!</mat-error>
                 </mat-form-field>
                 <button mat-button matStepperPrevious type="button">Назад</button>
-                <button mat-button matStepperNext type="button">Следваща стъпка</button>
+                <button [disabled]="getOfferForm.get('glassType')?.errors" mat-button matStepperNext type="button">Следваща стъпка</button>
             </ng-template>
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Стъпка 5: Изпрати запитването</ng-template>
             <button mat-button matStepperPrevious type="button">Назад</button>
-            <button type="submit" mat-raised-button color="primary"
+            <button [disabled]="getOfferForm.invalid" type="submit" mat-raised-button color="primary"
             id="getOffer-submit-button">Изпрати</button>
         </mat-step>
     </mat-stepper>

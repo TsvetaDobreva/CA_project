@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators, FormGroupDirective, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormGroupDirective, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { appEmailValidator, sameValueGroupValidator } from 'src/app/shared/validators';
 
@@ -12,20 +12,24 @@ import { appEmailValidator, sameValueGroupValidator } from 'src/app/shared/valid
 export class RegisterComponent {
 
   registerForm = this.fb.group({
-    email: ['', [Validators.required, appEmailValidator()]],
-    pass: this.fb.group({
-      password: ['', Validators.required, Validators.minLength(8)],
-      rePassword: []
-    }, {
-      validators: [sameValueGroupValidator('password', 'rePassword')]
-    }),
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    rePassword: ['', ],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     company: ['',]
+  },{
+    validators: sameValueGroupValidator('password', 'rePassword')
   })
+
+
   fieldRequired: string = "This field is required"
 
   constructor(private fb: FormBuilder, private auth: UserService) { }
+
+  get formCheck(): { [key: string]: AbstractControl } {
+    return this.registerForm.controls;
+  }
 
   emaiErrors() {
     return this.registerForm.get('email')?.hasError('required') ? 'This field is required' :

@@ -9,14 +9,14 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ContactUsComponent {
   contactForm = this.fb.group({
-    email: [''],
-    phone: [''],
-    firstName: [''],
-    lastName: [''],
-    text: [''],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required]],
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    text: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private contactService: ContactService) {}
+  constructor(private fb: FormBuilder, private contactService: ContactService) { }
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
