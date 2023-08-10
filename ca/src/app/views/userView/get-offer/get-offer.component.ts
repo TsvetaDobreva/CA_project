@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ContactService } from 'src/app/services/contact.service';
-
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-get-offer',
@@ -17,7 +16,7 @@ export class GetOfferComponent {
     glassType: ['', [Validators.required]]
   });
 
-  constructor(private fb: FormBuilder, private dataStore: ContactService) {}
+  constructor(private fb: FormBuilder, private dataStore: DataService) {}
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective) {
     const count = formData.value.count;

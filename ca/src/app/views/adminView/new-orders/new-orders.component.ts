@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from 'src/app/services/contact.service';
-import { IRowInMyOfferTable, IShowConfirmOfferInTable } from 'src/app/shared/interfaces/offer';
+import { DataService } from 'src/app/services/data.service';
+import { IAdminTableRow } from 'src/app/shared/interfaces/firestoreInterface';
+
 
 @Component({
   selector: 'app-new-orders',
@@ -9,18 +10,33 @@ import { IRowInMyOfferTable, IShowConfirmOfferInTable } from 'src/app/shared/int
 })
 export class NewOrdersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'price', 'status', 'action', 'date'];
-  dataSource: IRowInMyOfferTable[] = [];
+  dataSource: IAdminTableRow[] = [];
 
-  constructor(private dataStore: ContactService) { }
+  constructor(private dataStore: DataService) { }
 
   ngOnInit(): void {
-    this.dataStore.getNewOrders().then((data) => {
-      this.dataSource = data;
-    });
+    const tempData:any = [];
+    this.dataStore.getNewOrders().subscribe(data => {
+      this.dataSource = data.map( (x, i) => {
+        return {
+              id: x.id,
+              position: i + 1,
+              email: x.userData.email,
+              date: x.date.toDate().toLocaleString(),
+              count: x.count,
+              status: x.status,
+              userData: x.userData,
+              measure: x.measure,
+              glassType: x.glassType,
+              systemType: x.systemType,
+              price: x.price + 'лв'
+            }
+      })  
+    })
   }
 
-  moveToProduction(element: IRowInMyOfferTable) {
-    this.dataStore.changeStatus(element.uid, 'production');
-    this.dataStore.updateStatus(element.uid, 'production');
+  moveToProduction(element: IAdminTableRow) {
+    this.dataStore.changeStatus(element.id, 'production');
+    this.dataStore.updateStatus(element.id, 'production');
   }
 }

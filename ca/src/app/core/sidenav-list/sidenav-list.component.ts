@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { UserService } from '../../services/user.service'
+import { UserService } from '../../services/user.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -7,7 +8,6 @@ import { UserService } from '../../services/user.service'
   styleUrls: ['./sidenav-list.component.css']
 })
 export class SidenavListComponent {
-
   @Output() sidenavClose = new EventEmitter();
 
   constructor(private userService: UserService) { }
@@ -17,12 +17,8 @@ export class SidenavListComponent {
   }
 
   get isAdmin() {
-    return this.userService.isAdmin
+    return this.userService.isAdminRole;
   }
-
-  // get user() {
-  //   return this.userService.userData
-  // }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();

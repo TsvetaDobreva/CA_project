@@ -32,14 +32,12 @@ export class HeaderComponent implements OnInit {
       .subscribe((title: string) => {
         if (title) {
           this.title = title;
-          console.error(this.title)
         }
       });
   }
 
 
   public onToggleSidenav = () => {
-    debugger
     this.sidenavToggle.emit();
   }
 }

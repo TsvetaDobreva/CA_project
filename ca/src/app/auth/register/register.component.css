@@ -12,8 +12,6 @@
   align-content: center;
 }
 
-
-
 /* .login-container {
     height: calc(100% - 100px);
     width: 100%;
@@ -46,8 +44,11 @@
     height: 60px;
     margin-top: 15px;
   }
-  .socialMediaFlex{
-   
+  .socialMediaFlex{ 
     display:flex;
     justify-content: space-around;
   }
+
+
+
+

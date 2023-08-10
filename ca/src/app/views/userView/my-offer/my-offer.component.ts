@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ContactService } from 'src/app/services/contact.service';
-import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 import jsPDF from 'jspdf';
-import { IPositionPrice } from 'src/app/shared/interfaces/offerRequest';
-import { ICompleteOffer, IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
+import { IFinishedOrder, IMyOfferTableRow, IPositionPrice } from 'src/app/shared/interfaces/firestoreInterface';
+import { DB_PATH } from 'src/app/shared/constant/dbPath';
 
 @Component({
   selector: 'app-my-offer',
@@ -20,38 +19,51 @@ import { ICompleteOffer, IRowInMyOfferTable } from 'src/app/shared/interfaces/of
 })
 
 export class MyOfferComponent implements OnInit {
-  dataSource: IRowInMyOfferTable[] = [];
+  dataSource: IMyOfferTableRow[] = [];
   columnsToDisplay = ['position', 'price', 'date', ' '];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement: IRowInMyOfferTable  | null = null;
+  expandedElement: IMyOfferTableRow | null = null;
 
-  constructor(private dataStore: ContactService) { }
+  constructor(private dataStore: DataService) { }
 
   ngOnInit(): void {
-    this.dataStore.getMyOfferBack().then((data) => {
-      this.dataSource = data;
+    this.dataStore.getMyOfferBack().subscribe((data) => {
+      this.dataSource = data.map((x, i) => {
+        debugger
+        const row: IMyOfferTableRow = {
+          price: x.price,
+          uid: x.id,
+          status: x.status,
+          userUid: x.userUid,
+          name: x.name,
+          glassType: x.glassType,
+          systemType: x.systemType,
+          positionData: x.positionData,
+          date: x.date.toDate().toLocaleString(),
+          action: ' ',
+          position: i + 1,
+          adminTableRelation: x.adminTableRelation
+        }
+        return row;
+      })
       let totalPrice = 0;
-      data.action = ' ';
-      data.forEach( (record: any, index: number) => {
+      this.dataSource.forEach((record: any, index: number) => {
         record.positionData.forEach((postData: any) => {
-          debugger
           totalPrice += Number(postData.price);
         })
         record.price = totalPrice + 'лв';
         totalPrice = 0;
-      }) 
-    })
+      });
+    });
   }
 
   generateData(positionData: IPositionPrice[]) {
     const result = [];
-
     for (let i = 0; i < positionData.length; i++) {
       const data: any = positionData[i];
       data.position = (i + 1).toString();
       result.push(Object.assign({}, data));
     }
-
     return result;
   };
 
@@ -66,11 +78,10 @@ export class MyOfferComponent implements OnInit {
         align: "center",
         padding: 5,
         columnStyles: {
-          2: {cellWidth: 30},                           
-      }    
+          2: { cellWidth: 30 },
+        }
       });
     }
-
     return result;
   }
 
@@ -84,7 +95,7 @@ export class MyOfferComponent implements OnInit {
     pdf.text(`${row.name}`, 105, 60, undefined, "center");
     pdf.text("C.A. Agenda Ltd are presenting to your attention ", 105, 80, undefined, "center");
     pdf.text("an offer based on the parameters you set:", 105, 90, undefined, "center");
-    
+
     const headers: any = this.createHeaders([
       "position",
       "measure",
@@ -96,21 +107,21 @@ export class MyOfferComponent implements OnInit {
     pdf.save('string-test.pdf')
   }
 
-  confirmOrder(element: IRowInMyOfferTable) {
-    const data: ICompleteOffer = {
+  confirmOrder(element: IMyOfferTableRow) {
+    const data: IFinishedOrder = {
       price: element.price,
       date: new Date(),
       userUid: element.userUid,
-      adminTableItemUid: element.adminTableItemUid!,
+      adminTableRelation: element.adminTableRelation!,
       status: 'ПРИЕТА'
     }
-
-   this.dataStore.completeOffer(data, element.id!);
+    this.dataStore.completeOffer(data, element.uid!);
   }
 
-  declineOrder(element: IRowInMyOfferTable) {
-    
-
+  declineOrder(element: IMyOfferTableRow) {
+    this.dataStore.changeStatus(element.adminTableRelation!, 'decline').then(() => {
+      this.dataStore.deleteOffer(element.uid, DB_PATH.SEND_OFFER);
+    });
   }
 }
 

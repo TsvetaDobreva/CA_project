@@ -10,7 +10,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { ComponentModule } from './component/component.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { MainComponent } from './main/main.component';
@@ -19,9 +18,6 @@ import { MaterialModule } from './material/material.module';
 import { AdminModule } from './views/adminView/admin.module';
 import { UserModule } from './views/userView/user.module';
 
-
-// const app = AngularFireModule.initializeApp(environment.firebaseConfig);
-// const db = getFirestore(app);
 
 @NgModule({
   declarations: [
@@ -41,9 +37,7 @@ import { UserModule } from './views/userView/user.module';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     BrowserModule,
-    CoreModule,
-    ComponentModule,
-    
+    CoreModule,   
   ],
   providers: [],
   bootstrap: [AppComponent]

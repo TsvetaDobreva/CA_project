@@ -1,6 +1,7 @@
-export const DB_PATH = {
-    CONTACT_MESSAGES: 'contactMsg',
-    OFFER_REQUEST: 'offerRequest',
-    SEND_OFFER: 'sendBackOffers',
-    COMPLETE_OFFER: 'completeOffer'
+export enum DB_PATH {
+    FINISHED_ORDERS = 'finishedOrders',
+    ADMIN_TABLE = 'adminTable',
+    CONTACT_MESSAGES = 'contactMsg',
+    SEND_OFFER = 'sendOffer'
 };
+

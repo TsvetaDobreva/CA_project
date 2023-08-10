@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NewOffersComponent } from './new-offers/new-offers.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { NewOrdersComponent } from './new-orders/new-orders.component';
+import { AdminGuard } from '../../shared/guards/admin.guard'
 
 
 const routes: Routes = [
@@ -12,17 +13,26 @@ const routes: Routes = [
             {
                 path: 'allOrders',
                 component: AllOrdersComponent,
-                data: { title: 'Всички поръчки'}
+                canActivate: [AdminGuard],
+                data: {  
+                    title: 'Всички поръчки'  
+                }
             },
             {
                 path: 'newOffers',
                 component: NewOffersComponent,
-                data: { title: 'Запитвания за оферти'}
+                canActivate: [AdminGuard],
+                data: {
+                    title: 'Запитвания за оферти',
+                }
             },
             {
                 path: 'newOrders',
                 component: NewOrdersComponent,
-                data: { title: 'Нови поръчки'}
+                canActivate: [AdminGuard],
+                data: { 
+                    title: 'Нови поръчки' 
+                }
             }
         ]
     }

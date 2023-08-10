@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ContactService } from 'src/app/services/contact.service';
-import { IDialogShowOfferRequest, IOfferRequest, IPositionPrice, IShowNewOfferRequest } from 'src/app/shared/interfaces/offerRequest';
+import { DataService } from 'src/app/services/data.service';
+import { IAdminOfferDialog, IAdminTableRow, IPositionPrice } from '../../../shared/interfaces/firestoreInterface';
 import { MatDialog } from '@angular/material/dialog';
 import { NewOfferDialogComponent } from '../new-offer-dialog/new-offer-dialog.component';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 export interface DialogData {
   animal: string;
@@ -26,24 +24,36 @@ export interface DialogData {
 })
 
 export class NewOffersComponent implements OnInit {
-  arrPosition: IDialogShowOfferRequest | undefined;
-
-  dataSource: any[] = [];
+  arrPosition: IAdminOfferDialog | undefined;
+  dataSource: IAdminTableRow[] = [];
   columnsToDisplay = ['position', 'email', 'date'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: any | null = null;
 
-  constructor(private dataStore: ContactService, public dialog: MatDialog) {
+  constructor(private dataStore: DataService, public dialog: MatDialog) {
 
   }
   ngOnInit(): void {
-    this.dataStore.getNewRequest().then((data) => {
-      debugger
-      this.dataSource = data;
-    })
+    this.dataStore.getNewRequest().subscribe((data) => {
+      this.dataSource = data.map((x, i) => {
+        const row: IAdminTableRow = {
+          id: x.id,
+          position: i + 1,
+          date: x.date.toDate().toLocaleString(),
+          count: x.count,
+          status: x.status,
+          userData: x.userData,
+          measure: x.measure,
+          glassType: x.glassType,
+          systemType: x.systemType,
+          email: x.userData.email
+        }
+        return row
+      });
+    });
   }
 
-  openDialog(element: IShowNewOfferRequest): void {
+  openDialog(element: IAdminTableRow): void {
     const emptyInfo: IPositionPrice = { measure: '', price: '' }
     const emptyArray = [];
     for (let i = 0; i < element.count; i++) {
@@ -51,38 +61,21 @@ export class NewOffersComponent implements OnInit {
     }
     emptyArray.map((value) => value = emptyInfo)
     const dialogRef = this.dialog.open(NewOfferDialogComponent, {
-      data: Object.assign(element, { arrPosition: emptyArray })
+      data: Object.assign(element, { positionData: emptyArray })
     });
 
     dialogRef.afterClosed().subscribe(result => {
       let totalPrice = 0;
-      result.arrPosition.forEach((pos: any) => {
+  
+      result.positionData.forEach((pos: any) => {
         totalPrice += Number(pos.price);
       })
-      this.dataStore.addPrice(result.uid, totalPrice.toString());
-      this.dataStore.changeStatus(result.uid, 'send');
-      this.dataStore.sendBackOffer(result);
+      this.dataStore.addPrice(result.id, totalPrice.toString()).then(() => {
+        this.dataStore.changeStatus(result.id, 'send').then(() => {
+          this.dataStore.sendBackOffer(result);
+        })
+      })
     });
   }
-
-
-  // public openPDF(): void {
-  //   let pdf = new jsPDF('p','mm', 'a4');
-  //   pdf.text('hello world', 20, 20);
-  //   debugger
-  //   pdf.save('string-test.pdf')
-
-
-  // let DATA: any = document.getElementById('htmlData');
-  // html2canvas(DATA).then((canvas) => {
-  //   let fileWidth = 208;
-  //   let fileHeight = (canvas.height * fileWidth) / canvas.width;
-  //   const FILEURI = canvas.toDataURL('image/png');
-  //   let PDF = new jsPDF('p', 'mm', 'a4');
-  //   let position = 0;
-  //   PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-  //   PDF.save('angular-demo.pdf');
-  // });
-  // }
 }
 

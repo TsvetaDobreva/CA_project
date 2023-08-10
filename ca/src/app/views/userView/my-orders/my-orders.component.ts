@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from 'src/app/services/contact.service';
-import { IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
+import { DataService } from 'src/app/services/data.service';
+import { IFinishedOrderRow } from 'src/app/shared/interfaces/firestoreInterface';
 
 @Component({
   selector: 'app-my-orders',
@@ -9,14 +9,24 @@ import { IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
 })
 export class MyOrdersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'price', 'status', 'date'];
-  dataSource: IRowInMyOfferTable[] = [];
+  dataSource: IFinishedOrderRow[] = [];
 
-  constructor(private dataStore: ContactService) { }
+  constructor(private dataStore: DataService) { }
 
   ngOnInit(): void {
 
-    this.dataStore.getMyCompleteOffers().then((data) => {
-      this.dataSource = data;
+    this.dataStore.getMyCompleteOffers().subscribe((data) => {
+      this.dataSource = data.map((x,i) => {
+        const row: IFinishedOrderRow = {
+          position: i + 1,
+          adminTableRelation: x.adminTableRelation,
+          date: x.date.toDate().toLocaleString(),
+          price: x.price,
+          status: x.status,
+          userUid: x.userUid
+        }
+        return row;
+      });
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from 'src/app/services/contact.service';
-import { IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
+import { DataService } from 'src/app/services/data.service';
+import { IAdminTableRow } from 'src/app/shared/interfaces/firestoreInterface';
 
 @Component({
   selector: 'app-all-orders',
@@ -9,18 +9,21 @@ import { IRowInMyOfferTable } from 'src/app/shared/interfaces/offer';
 })
 export class AllOrdersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'price', 'status', 'action', 'date'];
-  dataSource: IRowInMyOfferTable[] = [];
+  dataSource: IAdminTableRow[] = [];
 
-  constructor(private dataStore: ContactService) { }
+  constructor(private dataStore: DataService) { }
 
   ngOnInit(): void {
-    this.dataStore.getAllOrders().then((data) => {
-      this.dataSource = data;
+    this.dataStore.getAllOrders().subscribe((data) => {
+      this.dataSource = data.map((x, i) => {
+         x.date = x.date.toDate().toLocaleString(); 
+        return Object.assign(x, {position: i + 1})
+      })
     });
   }
 
-  moveToComplete(element: IRowInMyOfferTable) {
-    this.dataStore.changeStatus(element.uid, 'complete');
-    this.dataStore.updateStatus(element.uid, 'complete');
+  moveToComplete(element: IAdminTableRow) {
+    this.dataStore.changeStatus(element.id, 'complete');
+    this.dataStore.updateStatus(element.id, 'complete');
   }
 }

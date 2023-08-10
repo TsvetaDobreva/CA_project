@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ContactService } from 'src/app/services/contact.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -16,7 +16,7 @@ export class ContactUsComponent {
     text: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private contactService: ContactService) { }
+  constructor(private fb: FormBuilder, private contactService: DataService) { }
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
@@ -28,5 +28,4 @@ export class ContactUsComponent {
     formDirective.resetForm();
     this.contactForm.reset();
   }
-
 }

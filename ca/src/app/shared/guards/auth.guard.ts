@@ -11,10 +11,6 @@ export const authGuard = () => {
     return true;
   }
 
-  if (authService.isAdmin) {
-    return true;
-  }
-
   // Redirect to the login page
   return router.parseUrl('/auth/login');
 };

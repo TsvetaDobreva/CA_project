@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IDialogShowOfferRequest } from 'src/app/shared/interfaces/offerRequest';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { IAdminOfferDialog } from 'src/app/shared/interfaces/firestoreInterface';
 
 @Component({
   selector: 'app-new-offer-dialog',
@@ -9,13 +8,12 @@ import { IDialogShowOfferRequest } from 'src/app/shared/interfaces/offerRequest'
   styleUrls: ['./new-offer-dialog.component.css']
 })
 
-
 export class NewOfferDialogComponent {
   index: number = 0;
   
   constructor(
     public dialogRef: MatDialogRef<NewOfferDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IDialogShowOfferRequest,
+    @Inject(MAT_DIALOG_DATA) public data: IAdminOfferDialog,
   ) {}
 
   onNoClick(): void {
