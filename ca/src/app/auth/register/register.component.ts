@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroupDirective, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
 import { appEmailValidator, sameValueGroupValidator } from 'src/app/shared/validators';
 
@@ -22,10 +23,12 @@ export class RegisterComponent {
     validators: sameValueGroupValidator('password', 'rePassword')
   })
 
-
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  
   fieldRequired: string = "This field is required"
 
-  constructor(private fb: FormBuilder, private auth: UserService) { }
+  constructor(private fb: FormBuilder, private auth: UserService, private _snackBar: MatSnackBar) { }
 
   get formCheck(): { [key: string]: AbstractControl } {
     return this.registerForm.controls;
@@ -52,13 +55,28 @@ export class RegisterComponent {
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
-    const password = formData.value.pass.password;
+    const password = formData.value.password;
     const firstName = formData.value.firstName;
     const lastName = formData.value.lastName;
     const company = formData.value.company;
-    this.auth.register(email, password, firstName, lastName, company);
+    this.auth.register(email, password, firstName, lastName, company).then((data) => {
+      if( data) {
+      return this.openSnackBar('Некоректни данни при опит за регистрация!')
+      }
+      this.openSnackBar('Успешно се регистрирахте!')
+    }).catch((error) => {
+      this.openSnackBar('Некоректни данни при опит за регистрация!')
+    });
     formDirective.resetForm();
     this.registerForm.reset();
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000
+    });
   }
 }
 

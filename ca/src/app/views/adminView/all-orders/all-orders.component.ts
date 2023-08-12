@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/services/data.service';
 import { IAdminTableRow } from 'src/app/shared/interfaces/firestoreInterface';
 
@@ -11,7 +12,10 @@ export class AllOrdersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'price', 'status', 'action', 'date'];
   dataSource: IAdminTableRow[] = [];
 
-  constructor(private dataStore: DataService) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private dataStore: DataService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.dataStore.getAllOrders().subscribe((data) => {
@@ -25,5 +29,14 @@ export class AllOrdersComponent implements OnInit {
   moveToComplete(element: IAdminTableRow) {
     this.dataStore.changeStatus(element.id, 'complete');
     this.dataStore.updateStatus(element.id, 'complete');
+    this.openSnackBar('Успешно завършихте поръчката!')
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000
+    });
   }
 }

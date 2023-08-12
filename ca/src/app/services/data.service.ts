@@ -51,21 +51,21 @@ export class DataService {
       glassType,
       systemType
     };
-    this.addToDb(newRequestData, DB_PATH.ADMIN_TABLE, true);
+    return this.addToDb(newRequestData, DB_PATH.ADMIN_TABLE, true);
   };
 
   addToDb(data: object, path: string, needNavigation: boolean) {
     const tableRelation = this.afs.collection(path);
-    tableRelation.add(data).then(() => {
+   return tableRelation.add(data).then(() => {
       if (needNavigation) {
         this.router.navigate(['/']);
       }
     })
-      .catch((error) => { alert(error) });
+
   };
 
   completeOffer(data: IFinishedOrder, docId: string) {
-    this.changeStatus(data.adminTableRelation, 'approve').then(() => {
+   return this.changeStatus(data.adminTableRelation, 'approve').then(() => {
       this.afs.collection(DB_PATH.SEND_OFFER).doc(docId).delete().then(() => {
         this.addToDb(data, DB_PATH.FINISHED_ORDERS, false);
       }).catch((error) => {
@@ -86,7 +86,7 @@ export class DataService {
       date: new Date(),
       adminTableRelation: data.id
     };
-    this.addToDb(newRequestData, DB_PATH.SEND_OFFER, false);
+    return this.addToDb(newRequestData, DB_PATH.SEND_OFFER, false);
   };
 
 

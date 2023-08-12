@@ -37,7 +37,7 @@ import { UserModule } from './views/userView/user.module';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     BrowserModule,
-    CoreModule,   
+    CoreModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]

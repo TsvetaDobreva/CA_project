@@ -84,7 +84,7 @@ export class UserService {
         this.router.navigate(['/']);
       })
       .catch((error) => {
-        window.alert(error.message);
+        return error;
       });
   };
 
@@ -111,17 +111,14 @@ export class UserService {
   login(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        //this.SetUserData(result.user);
+      .then(() => {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/']);
           }
         });
       })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+
   };
 
   logout() {

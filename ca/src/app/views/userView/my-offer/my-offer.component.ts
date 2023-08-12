@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import jsPDF from 'jspdf';
 import { IFinishedOrder, IMyOfferTableRow, IPositionPrice } from 'src/app/shared/interfaces/firestoreInterface';
 import { DB_PATH } from 'src/app/shared/constant/dbPath';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-my-offer',
@@ -24,12 +25,14 @@ export class MyOfferComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IMyOfferTableRow | null = null;
 
-  constructor(private dataStore: DataService) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private dataStore: DataService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.dataStore.getMyOfferBack().subscribe((data) => {
       this.dataSource = data.map((x, i) => {
-        debugger
         const row: IMyOfferTableRow = {
           price: x.price,
           uid: x.id,
@@ -115,13 +118,25 @@ export class MyOfferComponent implements OnInit {
       adminTableRelation: element.adminTableRelation!,
       status: 'ПРИЕТА'
     }
-    this.dataStore.completeOffer(data, element.uid!);
+    this.dataStore.completeOffer(data, element.uid!).then(() => {
+      this.openSnackBar('Успешно приехте нашата оферта!')
+    });
   }
 
   declineOrder(element: IMyOfferTableRow) {
     this.dataStore.changeStatus(element.adminTableRelation!, 'decline').then(() => {
+      this.openSnackBar('Успешно отказахте нашата оферта!')
       this.dataStore.deleteOffer(element.uid, DB_PATH.SEND_OFFER);
     });
   }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000
+    });
+  }
+
 }
 

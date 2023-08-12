@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { IAdminOfferDialog, IAdminTableRow, IPositionPrice } from '../../../shared/interfaces/firestoreInterface';
 import { MatDialog } from '@angular/material/dialog';
 import { NewOfferDialogComponent } from '../new-offer-dialog/new-offer-dialog.component';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   animal: string;
@@ -30,7 +31,10 @@ export class NewOffersComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: any | null = null;
 
-  constructor(private dataStore: DataService, public dialog: MatDialog) {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private dataStore: DataService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
   }
   ngOnInit(): void {
@@ -72,10 +76,21 @@ export class NewOffersComponent implements OnInit {
       })
       this.dataStore.addPrice(result.id, totalPrice.toString()).then(() => {
         this.dataStore.changeStatus(result.id, 'send').then(() => {
-          this.dataStore.sendBackOffer(result);
+          this.dataStore.sendBackOffer(result).then(() => {
+            this.openSnackBar('Успшно изпратихте оферта!');
+          });
         })
       })
     });
   }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000
+    });
+  }
+
 }
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -16,7 +17,10 @@ export class GetOfferComponent {
     glassType: ['', [Validators.required]]
   });
 
-  constructor(private fb: FormBuilder, private dataStore: DataService) {}
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private fb: FormBuilder, private dataStore: DataService, private _snackBar: MatSnackBar) {}
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective) {
     const count = formData.value.count;
@@ -24,9 +28,21 @@ export class GetOfferComponent {
     const systemType = formData.value.systemType;
     const glassType = formData.value.glassType;
 
-    this.dataStore.createNewRequest(count, measure, systemType, glassType);
+    this.dataStore.createNewRequest(count, measure, systemType, glassType).then(() => {
+      this.openSnackBar('Успешно поискахте оферта!')
+    }).catch((error) => {
+      this.openSnackBar('Възникна грешка! Моля, опитайте по-късно!')
+    });
     formDirective.resetForm();
     this.getOfferForm.reset();
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000
+    });
   }
 }
 

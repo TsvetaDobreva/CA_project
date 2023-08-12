@@ -1,17 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppEmailDirective } from './validators';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import { MaterialModule } from '../material/material.module';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 
 @NgModule({
   declarations: [
-    AppEmailDirective
+    // AppEmailDirective,
+    SnackBarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   exports: [
-    AppEmailDirective
-  ]
+    // AppEmailDirective,
+    SnackBarComponent
+  ],
+  providers: [ { provide: MAT_SNACK_BAR_DATA, useValue: {} }]
 })
 export class SharedModule { }
