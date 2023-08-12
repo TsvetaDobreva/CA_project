@@ -1,63 +1,62 @@
 .login-container {
-    background: url('../../../assets/white-cube.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-    height: 85%;
-    background-size: 100% 100%;
-    background-position: center;
-    flex-direction: column;
-    align-content: center;
-  }
-  
-  form {
-    width: 100%;
-  }
-  
-  .login-content {
-    width: 400px;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .login-toolbar {
-    justify-content: center;
-    color: #fff;
-    background-color: #000;
-  }
-  
-  .mat-form-field {
-    width: 100%;
-    display: block;
-  }
-  
-  .mat-raised-button {
-    width: 100%;
-    height: 60px;
-    margin-top: 15px;
-  }
+  background: url('../../../assets/white-cube.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 85%;
+  background-size: 100% 100%;
+  background-position: center;
+  flex-direction: column;
+  align-content: center;
+}
+
+form {
+  width: 100%;
+}
+
+.login-content {
+  width: 400px;
+  display: block;
+  margin: 0 auto;
+}
+
+.login-toolbar {
+  justify-content: center;
+  color: #fff;
+  background-color: #000;
+}
+
+.mat-form-field {
+  width: 100%;
+  display: block;
+}
+
+.mat-raised-button {
+  width: 100%;
+  height: 60px;
+  margin-top: 15px;
+}
 
 .mdc-card__actions {
   justify-content: center;
 }
-  
 
-  .socialMediaFlex{
-    display:flex;
-    justify-content: space-around;
-  }
+.socialMediaFlex {
+  display: flex;
+  justify-content: space-around;
+}
 
-  #login-submit-button {
-    background-color: #000;
-    color: #fff;
-  }
+#login-submit-button {
+  background-color: #000;
+  color: #fff;
+}
 
-  .login-card {
-    height: 100%;
-  }
+.login-card {
+  height: 100%;
+}
 
-  #login-submit-button:disabled {
-    background-color: #bab2b2;
-  }
+#login-submit-button:disabled {
+  background-color: #bab2b2;
+}

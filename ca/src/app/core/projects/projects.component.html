@@ -1,1 +1,18 @@
-<p>projects works!</p>
+<ng-container *ngFor="let building of buildingInfo;let i = index">
+    <mat-card class="example-card" [ngClass]="i % 2 == 0 ? 'mat-card-left' : 'mat-card-right'">
+        <mat-card-header>
+            <mat-card-title>{{building.name}}</mat-card-title>
+            <mat-card-subtitle>{{building.city}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <div class="mat-card-content" [ngClass]="i % 2 == 0 ? 'mat-card-content-left' : 'mat-card-content-right'">
+            <img mat-card-image id="building-image" src='{{building.backgroundImage}}' style="max-width: 20%;"
+                alt='building image'>
+            <mat-card-content>
+                <ng-container *ngFor="let line of building.description.split('<br>')">
+                     <p class="about-text">{{line}}</p>  
+                </ng-container>  
+            </mat-card-content>
+        </div>
+    </mat-card>
+</ng-container>

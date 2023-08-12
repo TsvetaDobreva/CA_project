@@ -3,7 +3,7 @@
         <mat-toolbar class="login-toolbar" color="primary">Регистрация</mat-toolbar>
         <mat-card>
 
-            <form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="onSubmit(registerForm, formDirective)">
+            <form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="onSubmit(registerForm, formDirective)" style="font-size: 8px;">
                 <mat-form-field class="mat-form-field">
                     <mat-icon matPrefix>email</mat-icon>
                     <input autofocus type="email" name='email' matInput placeholder="Електронна поща"
@@ -70,9 +70,7 @@
                     <input autofocus type="text" matInput placeholder="Фирма" formControlName="company">
                 </mat-form-field>
 
-                <hr>
                 <div class="socialMediaFlex">
-
                     <button id="register-submit-button" [disabled]="registerForm.invalid" style="width:50%" type="submit" mat-raised-button color="primary">Регистрация</button>
                 </div>
             </form>

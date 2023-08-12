@@ -7,18 +7,9 @@ const routes: Routes = [
     {
         path: 'auth',
         children: [
-            {
-                path: 'login',
-                component: LoginComponent
-            },
-            {
-                path: 'register',
-                component: RegisterComponent
-            },
-            {
-                path: 'logout',
-                component: LogoutComponent
-            }
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+            { path: 'logout', component: LogoutComponent }
         ]
     }
 ];

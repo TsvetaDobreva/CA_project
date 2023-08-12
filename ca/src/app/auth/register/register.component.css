@@ -2,7 +2,7 @@
   background: url('../../../assets/white-cube.jpg') no-repeat center center fixed;
   background-size: cover;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   position: absolute;
   width: 100%;
   height: 85%;
@@ -10,15 +10,9 @@
   background-position: center;
   flex-direction: column;
   align-content: center;
+  padding-top: 5px;
 }
 
-/* .login-container {
-    height: calc(100% - 100px);
-    width: 100%;
-    align-items: center;
-    display: flex;
-  }
-   */
   form {
     width: 100%;
     height: calc(100% - 100px);
@@ -32,12 +26,16 @@
   
   .login-toolbar {
     justify-content: center;
+    color: #fff;
+    background-color: #000;
   }
   
   .mat-form-field {
     width: 100%;
     display: block;
+    height: 75px;
   }
+  
   
   .mat-raised-button {
     width: 100%;
@@ -47,8 +45,16 @@
   .socialMediaFlex{ 
     display:flex;
     justify-content: space-around;
+    padding-bottom: 10px;
   }
 
+#register-submit-button {
+  background-color: #000;
+  color: #fff;
+}
 
+#register-submit-button:disabled {
+  background-color: #bab2b2;
+}
 
 

@@ -1,0 +1,54 @@
+.example-card {
+    max-width: 40%;
+    max-height: 250px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 15px 15px;  
+    background-color: #e0e0e0;
+}
+
+.example-card:last-child {
+    margin-bottom: 100px;
+}
+
+.mat-mdc-card-header {
+    justify-content: center;
+}
+
+#about-image {
+    max-width: 70%;
+    max-height: 300px;
+}
+
+.about-text:first-child {
+    padding-top: 20px;
+}
+
+.mat-card-content {
+    display: flex;
+    flex-direction: row;
+    max-height: 150px;
+    padding-top: 10px;
+}
+
+.mat-mdc-card-title {
+    font-size: 18px;
+}
+
+.mat-mdc-card-subtitle {
+    text-align: center;
+}
+
+.mat-card-content-left {
+    flex-direction: row-reverse;
+}
+
+.mat-card-left {
+    margin-left: 40px;
+
+}
+
+.mat-card-right {
+    margin-right: 40px;
+    margin-left: 50%;
+}
