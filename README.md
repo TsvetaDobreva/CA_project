@@ -27,9 +27,30 @@ Run ng serve for a dev server. Navigate to http://localhost:4200/. The app will 
 #### The general page breakdown looks like this:
 
 - Home page (URL: /#/ )
-    - List of tags
-    - List of articles pulled from either Feed, Global, or by Tag
-    - Pagination for list of articles
+    - Overview
+    - Short link to get a offer
+- Sign in/Sign up pages (URL: /#/auth/login, /#/auth/register )
+    - Uses userData (store in localStorage)
+- User views:
+      - Get offer (URL: /#/user/getOffer ):
+          - Provide dimensions and make a request for offer
+      - My offer (URL: /#/user/myOffer ):
+          - A list of send back offer from C.A. Agenda ltd
+      - My orders (URL: /#/user/myOrders ):
+          - A list of all my orders
+          - Оrder tracking
+- Admin views:
+      - New offers (URL: /#/admin/newOffers ):
+          - А list of all requested bids
+      - New orders (URL: /#/admin/newOrders ):
+          - A list of all orders placed
+      - All orders (URL: /#/admin/allOrders ):
+          - A list of all production orders placed;
+          - Цhanging the status of any order
+- Public views:
+    - Contact us (URL: /#/contactUs )
+    - About us (URL: /#/aboutUs )
+    - Projects (URL: /#/projects )
 
 
 
