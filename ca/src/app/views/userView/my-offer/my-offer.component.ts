@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import { IFinishedOrder, IMyOfferTableRow, IPositionPrice } from 'src/app/shared/interfaces/firestoreInterface';
 import { DB_PATH } from 'src/app/shared/constant/dbPath';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { DB_STATUS } from 'src/app/shared/constant/dbStatus';
 
 @Component({
   selector: 'app-my-offer',
@@ -116,7 +117,7 @@ export class MyOfferComponent implements OnInit {
       date: new Date(),
       userUid: element.userUid,
       adminTableRelation: element.adminTableRelation!,
-      status: 'ПРИЕТА'
+      status: DB_STATUS.APPROVE
     }
     this.dataStore.completeOffer(data, element.uid!).then(() => {
       this.openSnackBar('Успешно приехте нашата оферта!')
@@ -124,7 +125,7 @@ export class MyOfferComponent implements OnInit {
   }
 
   declineOrder(element: IMyOfferTableRow) {
-    this.dataStore.changeStatus(element.adminTableRelation!, 'decline').then(() => {
+    this.dataStore.changeStatus(element.adminTableRelation!, DB_STATUS.DECLINE).then(() => {
       this.openSnackBar('Успешно отказахте нашата оферта!')
       this.dataStore.deleteOffer(element.uid, DB_PATH.SEND_OFFER);
     });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/services/data.service';
+import { DB_STATUS } from 'src/app/shared/constant/dbStatus';
 import { IAdminTableRow } from 'src/app/shared/interfaces/firestoreInterface';
 
 @Component({
@@ -27,8 +28,8 @@ export class AllOrdersComponent implements OnInit {
   }
 
   moveToComplete(element: IAdminTableRow) {
-    this.dataStore.changeStatus(element.id, 'complete');
-    this.dataStore.updateStatus(element.id, 'complete');
+    this.dataStore.changeStatus(element.id, DB_STATUS.COMPLETE);
+    this.dataStore.updateStatus(element.id, DB_STATUS.COMPLETE);
     this.openSnackBar('Успешно завършихте поръчката!')
   }
 

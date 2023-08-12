@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/services/data.service';
+import { DB_STATUS } from 'src/app/shared/constant/dbStatus';
 import { IAdminTableRow } from 'src/app/shared/interfaces/firestoreInterface';
 
 
@@ -19,7 +20,6 @@ export class NewOrdersComponent implements OnInit {
   constructor(private dataStore: DataService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    const tempData:any = [];
     this.dataStore.getNewOrders().subscribe(data => {
       this.dataSource = data.map( (x, i) => {
         return {
@@ -40,8 +40,8 @@ export class NewOrdersComponent implements OnInit {
   }
 
   moveToProduction(element: IAdminTableRow) {
-    this.dataStore.changeStatus(element.id, 'production');
-    this.dataStore.updateStatus(element.id, 'production');
+    this.dataStore.changeStatus(element.id, DB_STATUS.PRODUCTION);
+    this.dataStore.updateStatus(element.id, DB_STATUS.PRODUCTION);
     this.openSnackBar('Преместихте поръчката за производство!');
   }
 

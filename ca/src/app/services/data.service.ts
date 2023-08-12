@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 
 /********* firebase *********/
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { DB_STATUS } from '../shared/constant/dbStatus';
 
 
 @Injectable({
@@ -45,7 +46,7 @@ export class DataService {
     const newRequestData: IAdminTable = {
       date: new Date(),
       count,
-      status: 'new',
+      status: DB_STATUS.NEW,
       userData: this.userService.user,
       measure,
       glassType,
@@ -65,7 +66,7 @@ export class DataService {
   };
 
   completeOffer(data: IFinishedOrder, docId: string) {
-   return this.changeStatus(data.adminTableRelation, 'approve').then(() => {
+   return this.changeStatus(data.adminTableRelation, DB_STATUS.APPROVE).then(() => {
       this.afs.collection(DB_PATH.SEND_OFFER).doc(docId).delete().then(() => {
         this.addToDb(data, DB_PATH.FINISHED_ORDERS, false);
       }).catch((error) => {
@@ -94,7 +95,7 @@ export class DataService {
 
 
   getNewRequest(): Observable<any[]> {
-    const adminTableRef = this.afs.collection<any>(DB_PATH.ADMIN_TABLE, ref => ref.where('status', '==', 'new'));
+    const adminTableRef = this.afs.collection<any>(DB_PATH.ADMIN_TABLE, ref => ref.where('status', '==', DB_STATUS.NEW));
     return adminTableRef.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -136,7 +137,7 @@ export class DataService {
   };
 
   getNewOrders() {
-    const adminTableRef = this.afs.collection<any>(DB_PATH.ADMIN_TABLE, ref => ref.where('status', '==', 'approve'));
+    const adminTableRef = this.afs.collection<any>(DB_PATH.ADMIN_TABLE, ref => ref.where('status', '==', DB_STATUS.APPROVE));
 
     return adminTableRef.snapshotChanges().pipe(
       map(actions => {
@@ -150,7 +151,7 @@ export class DataService {
   };
 
   getAllOrders() {
-    const findStatus: string[] = ['production', 'complete']
+    const findStatus: string[] = [DB_STATUS.PRODUCTION, DB_STATUS.COMPLETE]
     const adminTableRef = this.afs.collection<any>(DB_PATH.ADMIN_TABLE, ref => ref.where('status', 'in', findStatus));
 
     return adminTableRef.snapshotChanges().pipe(
