@@ -27,9 +27,9 @@ Run ng serve for a dev server. Navigate to http://localhost:4200/. The app will 
 #### The general page breakdown looks like this:
 
 - Home page (URL: /#/ )
-  - List of tags
-  - List of articles pulled from either Feed, Global, or by Tag
-  - Pagination for list of articles
+    - List of tags
+    - List of articles pulled from either Feed, Global, or by Tag
+    - Pagination for list of articles
 
 
 
